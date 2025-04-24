@@ -1,47 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Website</title>
+    <meta charset="UTF-8">
+    <title>Marc Levin</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: #f9f9f9;
             margin: 0;
             padding: 0;
+            color: #333;
         }
-        
+
         header {
-            background-color: #333;
+            background-color: #2c3e50;
             color: #fff;
-            padding: 20px;
+            padding: 30px 20px;
             text-align: center;
         }
-        
-        h1 {
-            margin: 0;
-        }
-        
+
         main {
-            max-width: 800px;
-            margin: 20px auto;
+            max-width: 750px;
+            margin: 40px auto;
             padding: 20px;
             background-color: #fff;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to My Website</h1>
+        <h1>Marc Levin</h1>
+        <p>Software Developer | FinTech Researcher | MPhil FinTech @ UCT</p>
     </header>
-    
+
     <main>
         <h2>About Me</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl at lacinia tincidunt, velit nunc tincidunt nunc, nec luctus nunc nunc vitae nunc.</p>
-        
-        <h2>Contact</h2>
-        <p>Email: example@example.com</p>
-        <p>Phone: 123-456-7890</p>
+        <p>I'm a passionate developer and current master's student focused on building software that solves real-world problems. I love working on innovative projects in fintech, machine learning, and full-stack development.</p>
+
+        <h2>Projects</h2>
+        <ul>
+            <li>
+                <strong>AST-Based Hint Generator:</strong> Developed a hint generator based on Abstract Syntax Tree structure comparison and LLM refinement as part of my honours research.  
+                <br><em>Tools Used:</em> Python, Postgres, Docker, JavaScript  
+                <br><a href="https://github.com/marclevin/Comparator" target="_blank">View Repo</a>
+            </li>
+            <li>
+                <strong>BarkingMad AutoFeeder:</strong> Chrome extension that automates contributing to charity.  
+                <br><em>Tools Used:</em> JavaScript, AppScript  
+                <br><a href="https://github.com/marclevin/BarkingMad_AutoFeeder" target="_blank">View Repo</a>
+            </li>
+            <li>
+                <strong>Open Payments Contributor:</strong> Active contributor to Interledger Foundation's Open Payments project.  
+                <br><em>Tools Used:</em> TypeScript, OpenAPI, Husky  
+                <br><a href="https://github.com/interledger/open-payments" target="_blank">View Repo</a>
+            </li>
+        </ul>
+
+        <h2>Download My CV</h2>
+        <p><a href="MarcLevin_CV.pdf" target="_blank">View or Download My CV (PDF)</a></p>
+
+        <h2>Connect with Me</h2>
+        <p>
+            <a href="https://github.com/marclevin" target="_blank">GitHub</a> |
+            <a href="https://www.linkedin.com/in/levinsoftware/" target="_blank">LinkedIn</a>
+        </p>
     </main>
 </body>
 </html>
