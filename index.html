@@ -2,91 +2,678 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marc Levin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+        /* Dracula Palette */
+        :root {
+            --bg:        #282a36;
+            --bg-card:   #1e2029;
+            --surface:   #44475a;
+            --fg:        #f8f8f2;
+            --comment:   #6272a4;
+            --cyan:      #8be9fd;
+            --green:     #50fa7b;
+            --orange:    #ffb86c;
+            --pink:      #ff79c6;
+            --purple:    #bd93f9;
+            --red:       #ff5555;
+            --yellow:    #f1fa8c;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            color: #333;
         }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--fg);
+            min-height: 100vh;
+            line-height: 1.7;
+        }
+
+        /* ── Header ── */
         header {
-            background-color: #2c3e50;
-            color: #fff;
-            padding: 30px 20px;
+            position: relative;
+            padding: 44px 20px 36px;
             text-align: center;
+            overflow: hidden;
+            border-bottom: 1px solid var(--surface);
         }
 
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(189,147,249,.18) 0%, transparent 70%),
+                        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(139,233,253,.1) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ── Terminal background ── */
+        .terminal-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #term-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            line-height: 1.75;
+            padding: 8px 24px;
+            filter: blur(2px);
+            opacity: 0.18;
+        }
+
+        .bg-line {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            animation: bg-fadein 0.35s ease forwards;
+        }
+
+        @keyframes bg-fadein {
+            from { opacity: 0; transform: translateY(3px); }
+            to   { opacity: 1; transform: translateY(0);   }
+        }
+
+        /* Keep header text above the bg and gradient */
+        .header-mono, header h1, .tagline { position: relative; z-index: 2; }
+
+        .header-mono {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0px;
+        }
+
+        .header-mono .shell-prompt { color: var(--green); }
+        .header-mono .shell-path   { color: var(--purple); opacity: 0.9; }
+        .header-mono .shell-conda   { color: var(--fg); opacity: 0.9; }
+
+        header h1 {
+            font-size: clamp(2.4rem, 6vw, 3.8rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--fg) 40%, var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .tagline {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.88rem;
+            color: var(--comment);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tagline-item {
+            transition: color 0.2s;
+            cursor: default;
+        }
+
+        .tagline-item:hover { color: var(--cyan); }
+        .tagline-item:nth-child(3):hover { color: var(--pink); }
+        .tagline-item:nth-child(5):hover { color: var(--purple); }
+
+        .tagline-dot {
+            opacity: 0.35;
+            user-select: none;
+        }
+
+        /* ── Main ── */
         main {
-            max-width: 750px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 52px;
         }
 
-        h1, h2 {
-            margin-top: 0;
+        /* ── Section headings ── */
+        section h2 {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--purple);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        a {
-            color: #3498db;
+        section h2::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--surface);
+        }
+
+        /* ── About ── */
+        .about-text {
+            font-size: 1.05rem;
+            color: var(--fg);
+            opacity: 0.88;
+            max-width: 640px;
+        }
+
+        /* ── Project cards ── */
+        .projects-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--surface);
+            border-radius: 12px;
+            padding: 24px 28px;
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--purple), var(--cyan));
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .card:hover {
+            border-color: var(--purple);
+            box-shadow: 0 0 28px rgba(189,147,249,.12), 0 4px 20px rgba(0,0,0,.4);
+            transform: translateY(-2px);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--fg);
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 0.93rem;
+            color: var(--comment);
+            margin-bottom: 14px;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            padding: 3px 10px;
+            border-radius: 999px;
+            border: 1px solid;
+            background: transparent;
+        }
+
+        /* Per-language colour theming */
+        .tag-python     { color: var(--pink); border-color: rgba(250, 140, 215, 0.3); background: rgba(241,250,140,.05); }
+        .tag-postgres   { color: var(--red);   border-color: rgba(253, 139, 139, 0.3); background: rgba(139,233,253,.05); }
+        .tag-docker     { color: var(--cyan);   border-color: rgba(139,233,253,.3); background: rgba(139,233,253,.05); }
+        .tag-javascript { color: var(--yellow); border-color: rgba(241,250,140,.3); background: rgba(241,250,140,.05); }
+        .tag-typescript { color: var(--yellow); border-color: rgba(241,250,140,.3); background: rgba(139,233,253,.05); }
+        .tag-appscript  { color: var(--green);  border-color: rgba(80,250,123,.3);  background: rgba(80,250,123,.05);  }
+        .tag-solidity   { color: var(--purple); border-color: rgba(189,147,249,.3); background: rgba(189,147,249,.05); }
+        .tag-hardhat    { color: var(--orange); border-color: rgba(255,184,108,.3); background: rgba(255,184,108,.05); }
+
+        .card-link {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            color: var(--cyan);
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
         }
 
-        a:hover {
-            text-decoration: underline;
+        .card-link:hover {
+            color: var(--purple);
         }
 
-        ul {
-            padding-left: 20px;
+        .card-link::after {
+            content: '→';
         }
 
-        li {
-            margin-bottom: 15px;
+        /* ── Links section ── */
+        .links-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--surface);
+            background: var(--bg-card);
+            color: var(--fg);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: border-color 0.2s, box-shadow 0.2s, color 0.2s;
+        }
+
+        .link-btn:hover {
+            border-color: var(--purple);
+            box-shadow: 0 0 14px rgba(189,147,249,.15);
+            color: var(--purple);
+        }
+
+        .link-btn.primary {
+            border-color: var(--purple);
+            color: var(--purple);
+        }
+
+        .link-btn.primary:hover {
+            background: rgba(189,147,249,.08);
+            box-shadow: 0 0 20px rgba(189,147,249,.2);
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 28px 24px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            border-top: 1px solid var(--surface);
+        }
+
+        .footer-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-prompt { color: var(--green); }
+        .footer-name   { color: var(--fg); }
+        .footer-sep    { color: var(--surface); }
+        .footer-role   { color: var(--purple); }
+        .footer-loc    { color: var(--cyan); }
+        .footer-year   { color: var(--comment); }
+
+        .cursor {
+            display: inline-block;
+            width: 7px;
+            height: 13px;
+            background: var(--purple);
+            border-radius: 1px;
+            vertical-align: middle;
+            animation: blink 1.1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0; }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 500px) {
+            header { padding: 32px 16px 28px; }
+            main { padding: 40px 16px 60px; }
+            .card { padding: 18px 20px; }
         }
     </style>
 </head>
 <body>
+
     <header>
+        <div class="terminal-bg" aria-hidden="true"><div id="term-bg"></div></div>
+        <p class="header-mono">
+            <span class="shell-path"><span class="shell-conda">(base)</span> marc@antares:~</span>
+            <span class="shell-prompt"> $&nbsp;</span><span id="shell-cmd"></span><span class="cursor"></span>
+        </p>
         <h1>Marc Levin</h1>
-        <p>Software Developer | FinTech Researcher | MPhil FinTech @ UCT</p>
+        <p class="tagline">
+            <span class="tagline-item">Software Developer</span>
+            <span class="tagline-dot">·</span>
+            <span class="tagline-item">FinTech Researcher</span>
+            <span class="tagline-dot">·</span>
+            <span class="tagline-item">MPhil FinTech @ UCT</span>
+        </p>
     </header>
 
     <main>
-        <h2>About Me</h2>
-        <p>I'm a passionate developer and current master's student focused on building software that solves real-world problems. I love working on innovative projects in fintech, machine learning, and full-stack development.</p>
 
-        <h2>Projects</h2>
-        <ul>
-            <li>
-                <strong>AST-Based Hint Generator:</strong> Developed a hint generator based on Abstract Syntax Tree structure comparison and LLM refinement as part of my honours research.  
-                <br><em>Tools Used:</em> Python, Postgres, Docker, JavaScript  
-                <br><a href="https://github.com/marclevin/Comparator" target="_blank">View Repo</a>
-            </li>
-            <li>
-                <strong>BarkingMad AutoFeeder:</strong> Chrome extension that automates contributing to charity.  
-                <br><em>Tools Used:</em> JavaScript, AppScript  
-                <br><a href="https://github.com/marclevin/BarkingMad_AutoFeeder" target="_blank">View Repo</a>
-            </li>
-            <li>
-                <strong>Open Payments Contributor:</strong> Active contributor to Interledger Foundation's Open Payments project.  
-                <br><em>Tools Used:</em> TypeScript, OpenAPI, Husky  
-                <br><a href="https://github.com/interledger/open-payments" target="_blank">View Repo</a>
-            </li>
-        </ul>
+        <section>
+            <h2>About</h2>
+            <p class="about-text">
+                Passionate developer and master's student focused on building software that solves real-world problems.
+                I love working on innovative projects in fintech, machine learning, and full-stack development.
+            </p>
+        </section>
 
-        <h2>Download My CV</h2>
-        <p><a href="MarcLevin_CV.pdf" target="_blank">View or Download My CV (PDF)</a></p>
+        <section>
+            <h2>Projects</h2>
+            <div class="projects-grid">
 
-        <h2>Connect with Me</h2>
-        <p>
-            <a href="https://github.com/marclevin" target="_blank">GitHub</a> |
-            <a href="https://www.linkedin.com/in/levinsoftware/" target="_blank">LinkedIn</a>
-        </p>
+                <div class="card">
+                    <p class="card-title">AST-Based Hint Generator</p>
+                    <p class="card-desc">
+                        Hint generator based on Abstract Syntax Tree structure comparison and LLM refinement,
+                        developed as part of my honours research.
+                    </p>
+                    <div class="card-footer">
+                        <div class="tags">
+                            <span class="tag tag-python">Python</span>
+                            <span class="tag tag-postgres">Postgres</span>
+                            <span class="tag tag-docker">Docker</span>
+                            <span class="tag tag-javascript">JavaScript</span>
+                        </div>
+                        <a class="card-link" href="https://github.com/marclevin/Comparator" target="_blank">View Repo</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <p class="card-title">Nkadime</p>
+                    <p class="card-desc">
+                        End-to-end lending platform connecting thin-file borrowers and community lenders via open banking data,
+                        a Python credit scoring engine, smart escrow contracts on the XRPL EVM sidechain,
+                        and touchpoints including a Telegram bot and web portal.
+                    </p>
+                    <div class="card-footer">
+                        <div class="tags">
+                            <span class="tag tag-python">Python</span>
+                            <span class="tag tag-solidity">Solidity</span>
+                            <span class="tag tag-javascript">JavaScript</span>
+                            <span class="tag tag-typescript">TypeScript</span>
+                            <span class="tag tag-docker">Docker</span>
+                            <span class="tag tag-hardhat">HardHat</span>
+                        </div>
+                        <a class="card-link" href="https://github.com/FTC-Project/ftc-lendx" target="_blank">View Repo</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <p class="card-title">BarkingMad AutoFeeder</p>
+                    <p class="card-desc">
+                        Chrome extension that automates contributing to charity.
+                    </p>
+                    <div class="card-footer">
+                        <div class="tags">
+                            <span class="tag tag-javascript">JavaScript</span>
+                            <span class="tag tag-appscript">AppScript</span>
+                        </div>
+                        <a class="card-link" href="https://github.com/marclevin/BarkingMad_AutoFeeder" target="_blank">View Repo</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <h2>Links</h2>
+            <div class="links-row">
+                <a class="link-btn primary" href="MarcLevin_CV.pdf" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+                    Download CV
+                </a>
+                <a class="link-btn" href="https://github.com/marclevin" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                    GitHub
+                </a>
+                <a class="link-btn" href="https://www.linkedin.com/in/levinsoftware/" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                </a>
+            </div>
+        </section>
+
     </main>
+
+    <footer>
+        <span class="footer-line">
+            <span class="footer-prompt">❯</span>
+            <span class="footer-name">marc levin</span>
+            <span class="footer-sep">/</span>
+            <span class="footer-role">mphil fintech</span>
+            <span class="footer-sep">/</span>
+            <span class="footer-loc">cape town</span>
+            <span class="footer-sep">//</span>
+            <span class="footer-year">2026</span>
+        </span>
+    </footer>
+
+    <script>
+        const COMMANDS = [
+            { cmd: 'git push origin main',                        pool: 'git'       },
+            { cmd: 'python score.py --borrower create',          pool: 'python'    },
+            { cmd: 'docker compose up --build',                   pool: 'docker'    },
+            { cmd: 'pytest tests/ -v --tb=short',                 pool: 'pytest'    },
+            { cmd: 'cat thesis.md | grep "fintech"',              pool: 'grep'      },
+            { cmd: 'ssh marc@uct.ac.za',                          pool: 'ssh'       },
+            { cmd: 'npm run dev',                                 pool: 'npm'       },
+            { cmd: 'git commit -m "feat: xrpl escrow module"',    pool: 'gitcommit' },
+            { cmd: 'psql -d lendx -c "SELECT COUNT(*) FROM loans"', pool: 'psql'   },
+            { cmd: './train_model.py --epochs 50',                pool: 'train'     },
+        ];
+
+        const OUTPUTS = {
+            git: [
+                'Enumerating objects: 23, done.',
+                'Counting objects: 100% (23/23), done.',
+                'Delta compression using up to 8 threads',
+                'Compressing objects: 100% (12/12), done.',
+                'Writing objects: 100% (12/12), 4.21 KiB | 1.40 MiB/s, done.',
+                'Total 12 (delta 8), reused 0 (delta 0), pack-reused 0',
+                'remote: Resolving deltas: 100% (8/8), done.',
+                'To github.com:marclevin/marclevin.github.io.git',
+                '   a3f2c1d..e9b4f2a  main → origin/main',
+            ],
+            gitcommit: [
+                'On branch main',
+                'Changes staged for commit:',
+                '  modified:   contracts/Escrow.sol',
+                '  new file:   scripts/deploy_xrpl.js',
+                '[main e9b4f2a] feat: xrpl escrow module',
+                ' 3 files changed, 147 insertions(+), 12 deletions(-)',
+                ' create mode 100644 scripts/deploy_xrpl.js',
+            ],
+            python: [
+                'Loading borrower profile: nkadime...',
+                'Fetching open banking transactions... ok',
+                'Computing feature vectors  [████████████] 100%',
+                'Running gradient boosted model...',
+                'feature importance: repayment_ratio=0.31, income_vol=0.19',
+                'Credit score: 687  (band: B+)',
+                'Risk tier: medium-low',
+                'Recommendation: APPROVE with conditions',
+                'Writing result → lendx.db ... done',
+            ],
+            docker: [
+                '[+] Building 14.2s (11/11) FINISHED',
+                ' => [internal] load build definition from Dockerfile',
+                ' => [1/5] FROM python:3.11-slim',
+                ' => [2/5] RUN pip install -r requirements.txt',
+                ' => [3/5] COPY . /app',
+                ' => [4/5] RUN python -m pytest',
+                ' => [5/5] exporting to image',
+                ' => writing image sha256:3f9a2c1d...  done',
+                'Container lendx-api   Started',
+                'Container lendx-db    Started',
+                'Container lendx-bot   Started',
+            ],
+            pytest: [
+                'collected 42 items',
+                '',
+                'tests/test_scoring.py::test_thin_file_borrower       PASSED',
+                'tests/test_scoring.py::test_credit_band_mapping       PASSED',
+                'tests/test_scoring.py::test_edge_case_no_history      PASSED',
+                'tests/test_escrow.py::test_lock_funds                 PASSED',
+                'tests/test_escrow.py::test_release_on_repayment       PASSED',
+                'tests/test_api.py::test_health_endpoint               PASSED',
+                'tests/test_api.py::test_loan_application_flow         PASSED',
+                '',
+                '42 passed in 3.14s',
+            ],
+            grep: [
+                '> Open banking as a catalyst for financial inclusion',
+                '> FinTech regulation in emerging markets: SA perspective',
+                '> Digital identity and FinTech access in sub-Saharan Africa',
+                '> Alternative data in FinTech credit scoring models',
+                '> XRPL EVM: smart contracts for emerging market lending',
+            ],
+            ssh: [
+                'Connecting to uct.ac.za (137.158.10.1)...',
+                'Authenticated via ed25519 key',
+                'Welcome to Ubuntu 22.04 LTS (GNU/Linux 5.15.0)',
+                'Last login: Mon Mar 18 09:41:22 2025 from 196.24.x.x',
+                'marc@uct:~$ █',
+            ],
+            npm: [
+                '',
+                '  vite v5.1.4  ready in 312 ms',
+                '',
+                '  ➜  Local:   http://localhost:5173/',
+                '  ➜  Network: http://192.168.1.10:5173/',
+                '  ➜  press h + enter to show help',
+                '',
+                'hmr update /src/pages/Dashboard.jsx',
+                'hmr update /src/components/LoanCard.jsx',
+            ],
+            psql: [
+                'psql (15.2) connected to lendx on localhost:5432',
+                'SSL connection (protocol: TLSv1.3)',
+                '',
+                ' count',
+                '-------',
+                '   142',
+                '(1 row)',
+            ],
+            train: [
+                'Loading dataset: 12,840 samples... done',
+                'Train/val split: 80/20',
+                'Epoch  1/50  loss: 0.8241  val_loss: 0.7918  acc: 0.61',
+                'Epoch  5/50  loss: 0.6103  val_loss: 0.5874  acc: 0.71',
+                'Epoch 10/50  loss: 0.4422  val_loss: 0.4291  acc: 0.79',
+                'Epoch 20/50  loss: 0.2871  val_loss: 0.2934  acc: 0.86',
+                'Epoch 35/50  loss: 0.1954  val_loss: 0.2241  acc: 0.91',
+                'Epoch 50/50  loss: 0.1423  val_loss: 0.1891  acc: 0.93',
+                'Best model saved → ./checkpoints/model_e50.pt',
+            ],
+        };
+
+        function lineColor(text) {
+            if (!text.trim()) return 'var(--comment)';
+            if (/PASSED|done\.|100%|Started|saved →|→ origin|writing image/.test(text)) return 'var(--green)';
+            if (/ERROR|FAIL|error/.test(text))  return 'var(--red)';
+            if (/WARNING|warn/.test(text))       return 'var(--yellow)';
+            if (/➜|→|remote:|=>/i.test(text))   return 'var(--cyan)';
+            if (/^\s*(count|-+|\d+|\(\d+ row)/.test(text)) return 'var(--purple)';
+            return 'var(--green)';
+        }
+
+        const cmdEl = document.getElementById('shell-cmd');
+        const bgEl  = document.getElementById('term-bg');
+        let ci = 0;
+
+        function addBgLine(text, color) {
+            const line = document.createElement('div');
+            line.className = 'bg-line';
+            line.style.color = color;
+            line.textContent = text || '\u00a0';
+            bgEl.appendChild(line);
+            if (bgEl.children.length > 50) bgEl.firstChild.remove();
+        }
+
+        function spawnOutput(pool, cb) {
+            const all = OUTPUTS[pool] || [];
+            // Shuffle and pick 6–9 lines, then restore original order for coherence
+            const picked = [...all]
+                .map((v, i) => ({ v, i, r: Math.random() }))
+                .sort((a, b) => a.r - b.r)
+                .slice(0, 6 + Math.floor(Math.random() * 4))
+                .sort((a, b) => a.i - b.i);
+            picked.forEach(({ v }, idx) => {
+                setTimeout(() => addBgLine(v, lineColor(v)), idx * 145);
+            });
+            setTimeout(cb, picked.length * 145 + 500);
+        }
+
+        function typeCommand(cmd, cb) {
+            let ch = 0;
+            cmdEl.style.color = '';
+            (function type() {
+                cmdEl.textContent = cmd.slice(0, ++ch);
+                if (ch < cmd.length) setTimeout(type, 62 + Math.random() * 58);
+                else cb();
+            })();
+        }
+
+        function run() {
+            const { cmd, pool } = COMMANDS[ci];
+            typeCommand(cmd, () => {
+                // Flash green → command "executed"
+                cmdEl.style.color = 'var(--green)';
+                setTimeout(() => {
+                    cmdEl.textContent = '';
+                    cmdEl.style.color = '';
+                    spawnOutput(pool, () => {
+                        ci = (ci + 1) % COMMANDS.length;
+                        setTimeout(run, 250);
+                    });
+                }, 320);
+            });
+        }
+
+        setTimeout(run, 900);
+    </script>
 </body>
 </html>
