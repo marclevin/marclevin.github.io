@@ -59,36 +59,6 @@ header::before {
     margin: 0 auto;
 }
 
-/* ── Breadcrumb path ── */
-.crumbs {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2px;
-}
-
-.crumbs .prompt { color: var(--green); margin-right: 8px; }
-
-.crumbs a {
-    color: var(--cyan);
-    text-decoration: none;
-    padding: 1px 4px;
-    border-radius: 4px;
-    transition: color 0.2s, background 0.2s;
-}
-
-.crumbs a:hover {
-    color: var(--purple);
-    background: rgba(189,147,249,.1);
-}
-
-.crumbs .sep     { color: var(--surface); padding: 0 2px; }
-.crumbs .current { color: var(--comment); padding: 1px 4px; }
-
 header h1 {
     font-size: clamp(1.9rem, 5vw, 2.9rem);
     font-weight: 600;

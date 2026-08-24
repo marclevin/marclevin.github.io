@@ -113,14 +113,16 @@
 
         .header-mono {
             font-family: 'Fira Code', monospace;
-            font-size: clamp(0.62rem, 2.7vw, 0.85rem);
-            letter-spacing: 0.06em;
-            margin-bottom: 12px;
+            font-size: clamp(0.52rem, 2.1vw, 0.68rem);
+            letter-spacing: 0.05em;
+            margin-top: 22px;
+            opacity: 0.78;
             display: inline-flex;
             align-items: center;
             gap: 0px;
             max-width: 100%;
             white-space: nowrap;
+            transition: opacity 0.25s ease;
             /* Anchor point for the typed command, which is taken out of flow
                so the static prompt prefix never shifts as text appears. */
             position: relative;
@@ -128,6 +130,8 @@
                the right makes a typical line read as visually centred. */
             transform: translateX(-7ch);
         }
+
+        header:hover .header-mono { opacity: 1; }
 
         /* The command + cursor sit just past the prompt, absolutely positioned
            so growing text spills rightward instead of re-centering the prefix. */
@@ -409,8 +413,8 @@
 
         .cursor {
             display: inline-block;
-            width: 7px;
-            height: 13px;
+            width: 0.55em;
+            height: 1.05em;
             background: var(--purple);
             border-radius: 1px;
             vertical-align: middle;
@@ -434,10 +438,6 @@
 
     <header>
         <div class="terminal-bg" aria-hidden="true"><div id="term-bg"></div></div>
-        <p class="header-mono">
-            <span class="shell-path"><span class="shell-conda">(base)</span> marc@<span class="shell-host" id="shell-host">antares</span>:~</span>
-            <span class="shell-prompt"> $&nbsp;</span><span class="shell-cmd-wrap" id="shell-cmd-wrap"><span id="shell-cmd"></span><span class="cursor"></span></span>
-        </p>
         <h1>Marc Levin</h1>
         <p class="tagline">
             <span class="tagline-item">Software Developer</span>
@@ -445,6 +445,10 @@
             <span class="tagline-item">FinTech Researcher</span>
             <span class="tagline-dot">·</span>
             <span class="tagline-item">MPhil FinTech @ UCT</span>
+        </p>
+        <p class="header-mono">
+            <span class="shell-path"><span class="shell-conda">(base)</span> marc@<span class="shell-host" id="shell-host">antares</span>:~</span>
+            <span class="shell-prompt"> $&nbsp;</span><span class="shell-cmd-wrap" id="shell-cmd-wrap"><span id="shell-cmd"></span><span class="cursor"></span></span>
         </p>
     </header>
 

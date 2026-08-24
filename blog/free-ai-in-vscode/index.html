@@ -40,14 +40,6 @@
 
     <header>
         <div class="header-inner">
-            <p class="crumbs">
-                <span class="prompt">❯</span>
-                <a href="/">~</a>
-                <span class="sep">/</span>
-                <a href="/blog/">blog</a>
-                <span class="sep">/</span>
-                <span class="current">free-ai-in-vscode</span>
-            </p>
             <h1>Free AI Coding in VS Code</h1>
             <p class="post-meta">
                 <time datetime="2026-08-23">23 August 2026</time>
@@ -83,10 +75,9 @@
             </p>
 
             <p>
-                This split matters because you pick the two parts separately.
                 Continue is the harness and it is free forever.
                 Gemini is the model and Google gives away a free tier.
-                Put them together and the whole setup costs nothing.
+                Using both, you have a free AI coding assistant in VS Code.
             </p>
 
             <h2>Step 1: Install Continue</h2>
@@ -111,7 +102,7 @@
             </ol>
 
             <p>
-                Continue will ask you to sign in or pick a model. Ignore that for now.
+                Continue will ask you to pick a model. Ignore that for now.
                 Get your key first.
             </p>
 
@@ -150,7 +141,7 @@
             </ol>
 
             <p>
-                Prefer editing config by hand? Continue reads a YAML file at
+                Continue reads a YAML file at
                 <code>~/.continue/config.yaml</code>. On Windows that is
                 <code>%USERPROFILE%\.continue\config.yaml</code>. It looks like this:
             </p>
@@ -200,7 +191,7 @@
             <h2>Step 5: Actually use it</h2>
 
             <p>
-                Continue has three modes worth learning.
+                Continue has three modes.
             </p>
 
             <ul>
@@ -222,10 +213,8 @@
                 <li><strong>Read every suggestion before you accept it.</strong> The model is confident even when it is
                     wrong.</li>
                 <li><strong>Never send secrets.</strong> No API keys, no passwords, no personal data in a prompt.</li>
-                <li><strong>Free means you are the product, your prompts help train the product.</strong> Do not paste anything confidential
+                <li><strong>Free means you are the product, your prompts help train the AI.</strong> Do not paste anything confidential
                     into the free tier.</li>
-                <li><strong>Check your course rules.</strong> Some assignments ban AI assistance. That rule still
-                    applies here.</li>
             </ul>
 
             <h2>When you outgrow the free tier</h2>
@@ -271,7 +260,7 @@
                 <span class="credit-label">Why this post exists</span>
                 <p>
                     At the time of writing, I was a TA for a course where students were allowed to use AI.
-                    A student taking the course pointed out a crucial flaw: allowing it is not the same
+                    A student taking the course pointed out a flaw: allowing it is not the same
                     as everyone having equal access. So this post exists to give students a free setup that works in their editor.
                 </p>
                 <p>
