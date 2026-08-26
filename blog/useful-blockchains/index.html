@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Useful Blockchains · Marc Levin</title>
+    <meta name="description"
+        content="Three weeks at the Deep Dive into Blockchain summer school in Zurich left me convinced that permissioned systems are blockchain at it's best.">
+    <meta name="author" content="Marc Levin">
+    <meta name="theme-color" content="#282a36">
+    <link rel="canonical" href="https://marclevin.me/blog/useful-blockchains/">
+
+    <!-- Open Graph / social cards -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Useful Blockchains">
+    <meta property="og:description"
+        content="What three weeks in Zurich taught me about where blockchain actually works: permissioned systems, Hyperledger Fabric, and the XRP Ledger.">
+    <meta property="og:url" content="https://marclevin.me/blog/useful-blockchains/">
+    <meta property="article:published_time" content="2026-08-26">
+    <meta property="article:author" content="Marc Levin">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Useful Blockchains">
+    <meta name="twitter:description"
+        content="What three weeks in Zurich taught me about where blockchain actually works: permissioned systems, Hyperledger Fabric, and the XRP Ledger.">
+
+    <!-- Inline SVG favicon: terminal prompt glyph in Dracula green -->
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23282a36'/%3E%3Cpath d='M8 11l5 5-5 5M16 21h8' stroke='%2350fa7b' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../blog.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-inner">
+            <h1>Useful Blockchains</h1>
+            <p class="post-meta">
+                <time datetime="2026-08-26">26 August 2026</time>
+                <span class="dot">·</span>
+                <span class="read">5 min read</span>
+                <span class="dot">·</span>
+                <span>Marc Levin</span>
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <article class="prose">
+
+            <p class="lead">
+                In July I spent three weeks in Zurich at the Deep Dive into Blockchain summer school.
+                I had an amazing time. I also came home with a narrow opinion about where this
+                technology has value in my eyes. It is not the public chains, it is the permissioned ones.
+            </p>
+
+            <h2>Three weeks in Zurich</h2>
+
+            <p>
+                The school is run by the
+                <a href="https://www.blockchain.uzh.ch/" target="_blank" rel="noopener noreferrer">UZH Blockchain
+                    Center</a>.
+                Three weeks in July, built on three pillars: the technology, the economics, and the law. Plenty of
+                lecturers rotated through the weeks, split between academics and people who run these systems for a
+                living, and there were enough hours of class that you really feel it by Friday. Hearing a cryptographer, a
+                regulator, and a CTO describe the same system in one week does something to your brain, but even more so, your intuition.
+            </p>
+
+            <h2>What I actually took away</h2>
+
+            <p>
+                By the second week I had picked up a pattern. The projects I most appreciated that were in production, with real money behind
+                them, kept sharing one property. The participants in the chain were known to each other. Each had been issued an
+                identity by somebody, and each could be removed.
+            </p>
+
+            <p>
+                That is a <strong>permissioned blockchain</strong>. A governed set of members, each holding a
+                cryptographic identity, writing to a shared ledger that none of them owns.
+            </p>
+
+            <p>
+                It makes sense once you look at the cost. Public chains spend enormous effort on one question: how
+                do you agree on state when anyone can join and anyone might be lying? Proof of work answers it with
+                electricity, proof of stake with capital at risk, and both vary in fees and latency. Knowing
+                who the participants are makes the question a lot cheaper.
+            </p>
+
+            <h2>Hyperledger Fabric</h2>
+
+            <p>
+                <a href="https://www.hyperledger.org/projects/fabric" target="_blank"
+                    rel="noopener noreferrer">Fabric</a>
+                is the one I would reach for. Open source, under the Linux Foundation, and running inside large
+                organisations for years. A few of its design choices stand out to me.
+            </p>
+
+            <ul>
+                <li><strong>Identity is the foundation.</strong> Every participant holds an X.509 certificate from a
+                    Certificate Authority, and a Membership Service Provider maps it to an organisation and a role.
+                    </li>
+                <li><strong>Endorsement policies decide who signs.</strong> Require two named banks, or any three of
+                    five members, or the regulator plus the originator.</li>
+                <li><strong>Channels partition the ledger.</strong> Members on a channel share a ledger and everyone
+                    outside sees nothing. When two of them need a price kept from the rest, a private data collection
+                    sends the payload straight between them and writes only a hash, enough to prove what was
+                    agreed.</li>
+                <li><strong>Chaincode is normal code.</strong> You write it in Go, Java, or JavaScript. There is no
+                    new fickle language to learn and no gas metering to reason about.</li>
+                <li><strong>Execute, order, validate.</strong> Fabric runs a transaction and collects endorsements
+                    first, orders it second, and validates it against current state before committing. Ordering runs
+                    on Raft, or SmartBFT since v3.0 for Byzantine fault tolerance (if you're into that).</li>
+            </ul>
+
+            <p>
+                There is no token, no mining, and no gas. The apparatus a public chain needs in order to bribe
+                strangers into behaving themselves is absent, because Fabric knows everyone.
+            </p>
+
+            <div class="note">
+                <span class="note-label">What this gets you</span>
+                One shared record of what happened, signatures attached, that no single member can quietly edit
+                afterwards. That is the whole thing, and it is enough for a lot of use cases.
+            </div>
+
+            <h2>The XRP Ledger</h2>
+
+            <p>
+                The other system I came away impressed by is the
+                <a href="https://xrpl.org/" target="_blank" rel="noopener noreferrer">XRP Ledger</a>. It is public
+                and open to anyone, and it earns a place here because it leans on a known set of participants, the validators.
+                Validators are selected through a Unique Node List, so each operator picks which
+                validators it trusts, and in practice those are named organisations: universities, exchanges,
+                businesses. The ledger closes every three to five seconds and charges a fraction of a cent, and that
+                fee is destroyed rather than paid to anyone.
+            </p>
+
+            <p>
+                XRPL is also narrow by design, which I see as a feature. Escrows, payment channels,
+                issued currencies, and an order book exchange are native transaction types. You configure them
+                rather than deploying a contract and auditing it. Fewer moving parts means fewer places to lose
+                money. You can also do no-op transactions, which is a neat trick for timestamping and proving existence of data.
+            </p>
+
+            <p>
+                I used the XRPL EVM sidechain for the escrow contracts in
+                <a href="https://github.com/FTC-Project/ftc-lendx" target="_blank"
+                    rel="noopener noreferrer">Nkadime</a>,
+                a lending platform I worked on in my first year of my masters.
+            </p>
+
+            <p>
+                In February this year XRPL activated Permissioned Domains. Accounts can now be gated behind
+                on-chain credentials, so a regulated institution can operate inside a section of the public ledger
+                where every counterparty has passed KYC. An open chain grew a permissioning layer because the
+                institutions that wanted it needed one. To me that says more than any marketing blurb about decentralisation.
+            </p>
+
+            <h2>Why do I have a preference for these two?</h2>
+
+            <p>
+                My position after Zurich is simple, blockchain does its best work when a group of
+                organisations need a shared record, they trust each other too little to let one of them host it,
+                and they all know who the others are. Fabric serves that case directly. XRPL exists as a version
+                where the record is money moving between them.
+            </p>
+
+            <p>
+                The rest of the space is interesting to read about, and I'm so grateful for the insights gained in Zurich.
+            </p>
+
+            <div class="link-grid">
+                <a class="link-card" href="https://www.hyperledger.org/projects/fabric" target="_blank"
+                    rel="noopener noreferrer">
+                    <span class="name">Hyperledger Fabric</span>
+                    <span class="what">Permissioned ledger for consortia. Identity first, chaincode in ordinary
+                        languages.</span>
+                    <span class="price">Open source, Linux Foundation</span>
+                </a>
+                <a class="link-card" href="https://xrpl.org/" target="_blank" rel="noopener noreferrer">
+                    <span class="name">XRP Ledger</span>
+                    <span class="what">Public ledger built for settlement. Native escrow, payment channels, an
+                        on-ledger exchange.</span>
+                    <span class="price">Open, curated validator lists</span>
+                </a>
+            </div>
+
+            <aside class="credit">
+                <span class="credit-label">Where this came from</span>
+                <p>
+                    Deep Dive into Blockchain ran from 5 to 24 July 2026 at the University of Zurich. Three weeks,
+                    six ECTS, and a great time in a very, very expensive city. If you get the chance, go!
+                </p>
+            </aside>
+
+            <nav class="post-nav">
+                <a class="back-link" href="/blog/">All posts</a>
+            </nav>
+
+        </article>
+    </main>
+
+    <footer>
+        <span class="footer-line">
+            <span class="footer-prompt">❯</span>
+            <a class="footer-name" href="/">marc levin</a>
+            <span class="footer-sep">/</span>
+            <span class="footer-role">mphil fintech</span>
+            <span class="footer-sep">/</span>
+            <span class="footer-loc">cape town</span>
+            <span class="footer-sep">//</span>
+            <span class="footer-year">2026</span>
+        </span>
+    </footer>
+
+</body>
+
+</html>

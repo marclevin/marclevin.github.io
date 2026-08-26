@@ -203,6 +203,11 @@ main {
 .tag-students { color: var(--green);  border-color: rgba(80,250,123,.3);  background: rgba(80,250,123,.05);  }
 .tag-free     { color: var(--yellow); border-color: rgba(241,250,140,.3); background: rgba(241,250,140,.05); }
 
+.tag-blockchain { color: var(--orange); border-color: rgba(255,184,108,.3); background: rgba(255,184,108,.05); }
+.tag-fabric     { color: var(--cyan);   border-color: rgba(139,233,253,.3); background: rgba(139,233,253,.05); }
+.tag-xrpl       { color: var(--green);  border-color: rgba(80,250,123,.3);  background: rgba(80,250,123,.05);  }
+.tag-fintech    { color: var(--pink);   border-color: rgba(255,121,198,.3); background: rgba(255,121,198,.05); }
+
 /* ── Empty state ── */
 .empty {
     font-family: 'Fira Code', monospace;
