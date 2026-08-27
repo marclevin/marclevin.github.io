@@ -76,17 +76,18 @@
 
             <p>
                 By the second week I had picked up a pattern. The projects I most appreciated that were in production, with real money behind
-                them, kept sharing one property. The participants in the chain were known to each other. Each had been issued an
-                identity by somebody, and each could be removed.
+                them, kept sharing one property. The participants in the chain were known to each other, at least in some fashion.
             </p>
 
             <p>
-                That is a <strong>permissioned blockchain</strong>. A governed set of members, each holding a
-                cryptographic identity, writing to a shared ledger that none of them owns.
+                One such example is a <strong>permissioned blockchain</strong>. A governed set of members, each holding a
+                cryptographic identity, writing to a shared ledger that none of them owns. Another might be a public chain,
+                but with a curated set of validators, so that the operators of the chain know who is validating and can
+                hold them accountable.
             </p>
 
             <p>
-                It makes sense once you look at the cost. Public chains spend enormous effort on one question: how
+                Public chains spend enormous effort on one question: how
                 do you agree on state when anyone can join and anyone might be lying? Proof of work answers it with
                 electricity, proof of stake with capital at risk, and both vary in fees and latency. Knowing
                 who the participants are makes the question a lot cheaper.
@@ -96,8 +97,8 @@
 
             <p>
                 <a href="https://www.hyperledger.org/projects/fabric" target="_blank"
-                    rel="noopener noreferrer">Fabric</a>
-                is the one I would reach for. Open source, under the Linux Foundation, and running inside large
+                    rel="noopener noreferrer">Hyperledger Fabric</a>
+                is a permissioned blockchain I have come to appreciate. Open source, under the Linux Foundation, and running inside large
                 organisations for years. A few of its design choices stand out to me.
             </p>
 
@@ -105,11 +106,10 @@
                 <li><strong>Identity is the foundation.</strong> Every participant holds an X.509 certificate from a
                     Certificate Authority, and a Membership Service Provider maps it to an organisation and a role.
                     </li>
-                <li><strong>Endorsement policies decide who signs.</strong> Require two named banks, or any three of
-                    five members, or the regulator plus the originator.</li>
-                <li><strong>Channels partition the ledger.</strong> Members on a channel share a ledger and everyone
-                    outside sees nothing. When two of them need a price kept from the rest, a private data collection
-                    sends the payload straight between them and writes only a hash, enough to prove what was
+                <li><strong>Endorsement policies decide who signs.</strong> Require two named entities, or any majority.</li>
+                <li><strong>Channels partition the ledger.</strong> Members on a channel, which is a like a private subnet, share
+                    a ledger and everyone outside sees nothing. When two of them need a price kept from the rest,
+                    a private data collection sends the payload straight between them and writes only a hash, enough to prove what was
                     agreed.</li>
                 <li><strong>Chaincode is normal code.</strong> You write it in Go, Java, or JavaScript. There is no
                     new fickle language to learn and no gas metering to reason about.</li>
@@ -134,7 +134,7 @@
             <p>
                 The other system I came away impressed by is the
                 <a href="https://xrpl.org/" target="_blank" rel="noopener noreferrer">XRP Ledger</a>. It is public
-                and open to anyone, and it earns a place here because it leans on a known set of participants, the validators.
+                and open to anyone, and it interested me because it leans on a known set of participants, the validators.
                 Validators are selected through a Unique Node List, so each operator picks which
                 validators it trusts, and in practice those are named organisations: universities, exchanges,
                 businesses. The ledger closes every three to five seconds and charges a fraction of a cent, and that
