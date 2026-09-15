@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How I Use ChatGPT, Claude, Gemini, and the Rest · Marc Levin</title>
+    <meta name="description"
+        content="My current AI workflow, and why the interface, coding harness, and surrounding system may matter more than model intelligence alone.">
+    <meta name="author" content="Marc Levin">
+    <meta name="theme-color" content="#282a36">
+    <link rel="canonical" href="https://marclevin.me/blog/how-i-use-llms/">
+
+    <!-- Open Graph / social cards -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How I Use ChatGPT, Claude, Gemini, and the Rest">
+    <meta property="og:description"
+        content="My current AI workflow, and why the interface, coding harness, and surrounding system may matter more than model intelligence alone.">
+    <meta property="og:url" content="https://marclevin.me/blog/how-i-use-llms/">
+    <meta property="article:published_time" content="2026-09-15">
+    <meta property="article:author" content="Marc Levin">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="How I Use ChatGPT, Claude, Gemini, and the Rest">
+    <meta name="twitter:description"
+        content="My current AI workflow, and why the interface, coding harness, and surrounding system may matter more than model intelligence alone.">
+
+    <!-- Inline SVG favicon: terminal prompt glyph in Dracula green -->
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23282a36'/%3E%3Cpath d='M8 11l5 5-5 5M16 21h8' stroke='%2350fa7b' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../blog.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-inner">
+            <h1>How I Use ChatGPT, Claude, Gemini, and the Rest</h1>
+            <p class="post-meta">
+                <time datetime="2026-09-15">15 September 2026</time>
+                <span class="dot">·</span>
+                <span class="read">10 min read</span>
+                <span class="dot">·</span>
+                <span>Marc Levin</span>
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <article class="prose">
+
+            <p class="lead">
+                There are plenty of LLM providers to choose from now. I suspect most people choose one less
+                deliberately than the comparison charts suggest. They start with whichever product reaches them
+                first, then stay because their conversations, files, and habits are already there. The services
+                they use for everything else matter too.
+            </p>
+
+            <p>
+                ChatGPT benefited enormously, in my view, from getting into people's hands early. For many people
+                I speak to, ChatGPT effectively means generative AI. That familiarity is hard to compete with.
+                I would expect a large user base to give OpenAI plenty of feedback to iterate on, and the product
+                has grown well beyond a text box: documents, voice, and
+                <a href="https://learn.chatgpt.com/docs/plugins" target="_blank" rel="noopener noreferrer">connections to external tools</a>
+                are now part of the experience.
+            </p>
+
+            <p>
+                Friends and family, both technical and non-technical, generally tell me they find ChatGPT
+                approachable. They like the interface and interactive features, even though most still use
+                little beyond basic chat. That is anecdotal, but it has shaped how I think about these products.
+                A feature can help make a system feel accessible without becoming something everyone uses daily.
+            </p>
+
+            <p>
+                My rough mental map is ChatGPT for almost anything, Claude for programming, and Gemini for
+                Google's ecosystem. Those are associations and habits, not hard boundaries. This is a reflection
+                on what I actually use, not a definitive benchmark or a survey of every model available.
+            </p>
+
+            <p>
+                The more I move between them, the less convinced I am that intelligence alone will be the
+                enduring moat in consumer AI. A capable model matters. So does the system that lets you do
+                something useful with it.
+            </p>
+
+            <h2>ChatGPT is where I think things through</h2>
+
+            <p>
+                I think ChatGPT has the best general interface of the systems I regularly use. The interaction
+                design feels considered. Perhaps that comes from having so many users and opportunities to
+                improve it. Perhaps OpenAI just has a very good product and design team. I cannot separate those
+                explanations from the outside, but I notice the result.
+            </p>
+
+            <p>
+                Several people have told me they stayed with ChatGPT after getting better answers from another
+                provider. They found ChatGPT easier to use. That is a small sample, not market research, but it
+                gets at the central issue: a better answer in one comparison does not necessarily make a better
+                everyday product. Having to fight the interface every time you want something is a real cost.
+            </p>
+
+            <p>
+                I mostly use it for ideation and iteration. I talk through questions, develop half-formed
+                thoughts, and ask about science, life, art, and nature. I also use it for documents,
+                transcription, and work that benefits from keeping a conversation going. Occasionally I use
+                connectors and other tools, but much of the value still comes from asking a question and
+                working through the answer.
+            </p>
+
+            <p>
+                In my experience, ChatGPT manages context better than the other systems I regularly use.
+                I mean the practical experience of carrying a discussion forward, retaining the relevant
+                constraints, and letting me return to an idea without rebuilding the whole conversation.
+                That is different from comparing advertised context-window sizes. A model being able to accept
+                a lot of text does not tell me how well the product will use it.
+            </p>
+
+            <p>
+                I do not think it wins every specialist task. Coding, search, and logistics often send me
+                elsewhere. But when I want accessible, conversational intelligence, ChatGPT is the system I
+                reach for most naturally. The training supplies the underlying capability; the surrounding
+                product makes it comfortable to use repeatedly. Both deserve credit.
+            </p>
+
+            <h2>Claude is where I build</h2>
+
+            <p>
+                Claude is my preferred coding system. It feels more like a precise, occasionally robotic
+                collaborator than something trying to imitate human conversation. I appreciate that when I
+                am working. I have also found it more robust against irrelevant or adversarial instructions,
+                including prompt-injection attempts that try to redirect it through material it reads.
+                That is my experience, not a security evaluation or a claim that it is immune.
+            </p>
+
+            <p>
+                I think a substantial part of Anthropic's appeal to developers comes from the harness.
+                By that I mean the software around the model: the tools, permissions, context, and execution
+                loop that allow it to work on a project.
+                <a href="https://code.claude.com/docs/en/how-claude-code-works" target="_blank" rel="noopener noreferrer">Claude Code</a>
+                can inspect a repository, edit files, run commands, and check its work, from a terminal or
+                alongside an IDE workflow. That changes what I can ask it to do.
+            </p>
+
+            <p>
+                Third-party tools such as
+                <a href="https://opencode.ai/docs/" target="_blank" rel="noopener noreferrer">OpenCode</a>
+                offer a similar style of interaction with a choice of model providers. The model and the
+                harness are separate choices, even when they arrive together. I see the development workflow
+                moving towards agents handling more of the lifecycle: understanding a task, planning changes,
+                implementing them, reviewing the result, and running checks. Autocomplete and isolated code
+                generation are only a small part of that.
+            </p>
+
+            <p>
+                I pay for Claude because it has been the most consistent coding system in my work. I use it
+                extensively for code generation, planning and executing implementation tasks, reviewing code,
+                validating changes, and larger jobs across repositories. Consistency matters more to me than
+                an impressive answer that I cannot reproduce on the next task.
+            </p>
+
+            <p>
+                I maintain internal benchmarks built around the coding tasks I care about. Claude currently
+                meets my expectations for code generation best across those tests. They are useful for deciding
+                what I want to use; they are not a comprehensive scientific ranking. I may write a separate
+                post about the tests, what they measure, and where they fall short.
+            </p>
+
+            <p>
+                Claude also has habits that annoy me. It can be excessively verbose, and it overengineers.
+                A small script can turn into an exercise in production-grade abstractions. Sometimes I need
+                a temporary tool that does one thing and then gets thrown away. I do not want to maintain an
+                architecture for it. I have had to constrain Claude with custom skills, instructions, and
+                workflows to get implementations that are concise and appropriate to the job.
+            </p>
+
+            <p>
+                Perhaps that behaviour reflects its training or the demands of enterprise customers. That is
+                speculation. Whatever the cause, I still prefer it for hobby projects, benchmarking systems,
+                internal tools, and disposable software, provided I make the scope clear.
+            </p>
+
+            <p>
+                I have tried OpenAI's
+                <a href="https://learn.chatgpt.com/docs" target="_blank" rel="noopener noreferrer">Codex tooling</a>,
+                including recent models, for the same kind of development work. Across my internal tests and
+                normal use, Claude's coding harness has generally been slightly more consistent. That is my
+                current experience of the complete systems. It does not establish that every Claude model
+                is better than every model available in Codex.
+            </p>
+
+            <h2>Gemini makes me tolerate the interface</h2>
+
+            <p>
+                I use Google's AI products frequently for practical questions about the outside world:
+                shopping research, web search, travel planning, opening and closing times, and places I need
+                to find. Google has a natural advantage here. Search and Maps are already part of how I answer
+                those questions, while Gmail, Docs, Slides, and the rest of Workspace give it useful context
+                for productivity tasks.
+            </p>
+
+            <p>
+                These connections are real, although they are not all interchangeable. Gemini Apps can
+                <a href="https://support.google.com/gemini/answer/16622866" target="_blank" rel="noopener noreferrer">find places and directions through Maps</a>
+                and retrieve information from Gmail, Docs, and Drive through its
+                <a href="https://support.google.com/gemini/answer/15229592?hl=en" target="_blank" rel="noopener noreferrer">Workspace connection</a>.
+                Gemini also works inside
+                <a href="https://workspace.google.com/solutions/ai/" target="_blank" rel="noopener noreferrer">Workspace products</a>,
+                including Docs and Slides. Access and supported actions depend on the account, settings, and
+                product surface. Owning the ecosystem does not mean every task is available through one chat.
+            </p>
+
+            <p>
+                I generally find Google's externally grounded answers reasonably trustworthy. When accuracy
+                matters, I still check the source. A generated answer about an opening time can be wrong even
+                when it is presented next to a convincing map.
+            </p>
+
+            <p>
+                My problem is the interface. In my opinion, Gemini's interface and interaction design are among
+                the weakest of the major providers. I dislike the push towards in-chat animations, generated
+                interfaces, and widgets. Too often they feel like a technical demonstration looking for a use
+                case. I want strong intelligence, usability, predictable interaction, and reliable tool use.
+                More things moving inside the chat do not automatically improve any of those.
+            </p>
+
+            <p>
+                Google's connector ecosystem could be one of its biggest advantages. Yet I have found that
+                even its higher-end models can struggle when a task requires several tools or connectors to
+                work together. Finding information in one place and using it correctly in another is where
+                the surrounding system has to earn its keep. Access alone is not enough.
+            </p>
+
+            <p>
+                Some individual tools are excellent, though. Nano Banana is one of the strongest image-generation
+                offerings I have used within a mainstream premium AI subscription. Google's current
+                <a href="https://gemini.google/overview/image-generation/" target="_blank" rel="noopener noreferrer">image-generation page</a>
+                distinguishes Nano Banana 2 from Nano Banana Pro, with the latter available through a paid-plan
+                option to regenerate an image. My praise is for the Nano Banana tools I have used, not a claim
+                that I have benchmarked every variant. The image results are a good reason to keep using a
+                product whose general interface I dislike.
+            </p>
+
+            <h2>The economics interest me more than the chat apps</h2>
+
+            <p>
+                Chinese models deserve to be taken seriously. The argument about how far they trail American
+                frontier models, and how quickly any gap is closing, can obscure a more useful question:
+                what becomes possible when capable models are cheaper to run or available to deploy yourself?
+            </p>
+
+            <p>
+                Calling them all distillations would be wrong.
+                <a href="https://github.com/deepseek-ai/DeepSeek-R1" target="_blank" rel="noopener noreferrer">DeepSeek-R1</a>
+                includes smaller distilled releases trained using outputs from the larger model.
+                <a href="https://github.com/deepseek-ai/DeepSeek-V3" target="_blank" rel="noopener noreferrer">DeepSeek-V3</a>
+                and <a href="https://github.com/MoonshotAI/Kimi-K2" target="_blank" rel="noopener noreferrer">Kimi K2</a>
+                use mixture-of-experts architectures, which activate only a subset of their parameters for
+                each token. Distillation and sparse computation are different approaches to making capability
+                more economical. Releasing weights is a separate decision about how others can access and
+                deploy a model. None of those facts, alone, proves a lower total cost for every workload.
+            </p>
+
+            <p>
+                Open weights also do not mean identical licences or free hosting. DeepSeek-R1's repository
+                describes MIT licensing and additional considerations for its distilled derivatives; Kimi K2
+                uses a modified MIT licence. These are concrete release examples, not descriptions of every
+                model either company offers.
+            </p>
+
+            <p>
+                Among ordinary users around me, I see much less use of these products than ChatGPT, Claude,
+                or Gemini. I cannot infer global adoption from that. In the developer conversations I encounter,
+                the attraction is more often cheaper API access, self-hosting, automation, or long-running
+                workloads. Those uses could be strategically important without replacing anyone's favourite
+                consumer chat app.
+            </p>
+
+            <p>
+                I have tried DeepSeek and Kimi. Kimi has been reasonably capable for coding, but has not matched
+                Claude in my use. DeepSeek has sometimes filled the role of a cheaper ChatGPT alternative,
+                although I have generally found it less capable for my needs. Both are good enough to take
+                seriously. Neither has become a major part of my daily workflow.
+            </p>
+
+            <p>
+                Censorship and political restrictions are another concern for me. If a system cannot discuss
+                certain subjects freely or reliably, that reduces its usefulness, whatever its coding ability.
+                I would not assume that every Chinese model, or every deployment of released weights, behaves
+                identically. The restrictions of a hosted service and the behaviour of a model someone runs
+                themselves need separate scrutiny. I want room to explore difficult questions, and censorship
+                belongs in my assessment of a product.
+            </p>
+
+            <p>
+                I expect these models to keep improving. If access to compute and advanced hardware becomes
+                less uneven over the next several years, the capability gap may narrow further. For now, my
+                impression is that American frontier providers are advancing faster in the areas I use and
+                delivering more useful consumer products. That is a judgement about my workflow, not a measured
+                national ranking. My prediction is that open-weight Chinese models may be most disruptive in
+                inexpensive inference, specialised deployments, coding, automation, and long-running agents.
+            </p>
+
+            <h2>Grok is still on my list to try properly</h2>
+
+            <p>
+                <a href="https://x.ai/grok" target="_blank" rel="noopener noreferrer">Grok</a>
+                has recently attracted more of my attention. Its connection to social media, particularly X,
+                and its positioning around fewer conversational restrictions interest me. I perceive a looser
+                alignment style, meaning a different approach to which requests it follows or refuses.
+                That impression is not an objective measure of its intelligence or reliability.
+            </p>
+
+            <p>
+                I have not used it seriously for professional work or run it through my internal benchmarks.
+                My instinct is to let the product mature before relying on it, although it may be unfair to
+                judge it without giving it a proper trial. I may eventually evaluate it systematically.
+                For now, it is something I am watching, with too little experience to offer a firm verdict.
+            </p>
+
+            <h2>The product is the whole system</h2>
+
+            <p>
+                My current arrangement is straightforward: ChatGPT for reasoning, conversation, ideation,
+                transcription, documents, and context-rich interaction; Claude for software development;
+                Gemini for search, shopping, travel, Maps, and Google-connected tasks. Chinese and other
+                open-weight models remain promising lower-cost options I use less often. Grok is still
+                waiting for a proper evaluation.
+            </p>
+
+            <p>
+                This arrangement is temporary. Models, interfaces, products, and prices change too quickly
+                for permanent rankings. I have no reason to stay loyal to a provider if another system starts
+                doing the work better.
+            </p>
+
+            <p>
+                What I expect to last is the importance of the complete system. We experience intelligence
+                through an interface, context management, a coding harness, connectors, integrations, and all
+                the small decisions that make an interaction reliable or frustrating. The provider with the
+                smartest model on a benchmark may not be the one people keep using. The more defensible
+                advantage may be making intelligence easy to access, direct, trust, and incorporate into
+                everyday work. That is increasingly what I find myself paying for.
+            </p>
+
+            <nav class="post-nav">
+                <a class="back-link" href="/blog/">All posts</a>
+            </nav>
+
+        </article>
+    </main>
+
+    <footer>
+        <span class="footer-line">
+            <span class="footer-prompt">❯</span>
+            <a class="footer-name" href="/">marc levin</a>
+            <span class="footer-sep">/</span>
+            <span class="footer-role">mphil fintech</span>
+            <span class="footer-sep">/</span>
+            <span class="footer-loc">cape town</span>
+            <span class="footer-sep">//</span>
+            <span class="footer-year">2026</span>
+        </span>
+    </footer>
+
+</body>
+
+</html>
