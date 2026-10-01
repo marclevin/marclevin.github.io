@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GonkLander · Marc Levin</title>
+    <meta name="description" content="One command to land on a new machine: install the gonk CLI, set up tools, and reach home.">
+    <meta name="author" content="Marc Levin">
+    <meta name="theme-color" content="#282a36">
+    <link rel="canonical" href="https://marclevin.me/lander/">
+
+    <!-- Inline SVG favicon: terminal prompt glyph in Dracula green -->
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23282a36'/%3E%3Cpath d='M8 11l5 5-5 5M16 21h8' stroke='%2350fa7b' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/blog/blog.css">
+    <style>
+        /* ── Copyable commands ── */
+        .cmd {
+            margin-top: 12px;
+        }
+
+        .cmd-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .cmd-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.05em;
+            color: var(--orange);
+        }
+
+        .copy {
+            margin-left: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            color: var(--cyan);
+            background: var(--bg);
+            border: 1px solid var(--surface);
+            border-radius: 6px;
+            padding: 4px 10px;
+            cursor: pointer;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .copy:hover { border-color: var(--purple); color: var(--purple); }
+        .copy.done  { border-color: var(--green);  color: var(--green); }
+
+        .prose .note {
+            font-size: 0.92rem;
+            color: var(--comment);
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-inner">
+            <h1>GonkLander</h1>
+            <p class="subtitle">Land on an unfamiliar machine, run one command, and make it Gonk-compatible.</p>
+        </div>
+    </header>
+
+    <main>
+        <article class="prose">
+
+            <h2>Install</h2>
+
+            <div class="cmd">
+                <div class="cmd-head">
+                    <div class="cmd-label">macOS / Linux</div>
+                    <button class="copy" type="button">copy</button>
+                </div>
+                <pre><code>curl -fsSL https://marclevin.me/gonk | bash</code></pre>
+            </div>
+
+            <div class="cmd">
+                <div class="cmd-head">
+                    <div class="cmd-label">Windows (PowerShell)</div>
+                    <button class="copy" type="button">copy</button>
+                </div>
+                <pre><code>irm https://marclevin.me/gonk.ps1 | iex</code></pre>
+            </div>
+
+            <div class="cmd">
+                <div class="cmd-head">
+                    <div class="cmd-label">Install and land the dev tools in one go</div>
+                    <button class="copy" type="button">copy</button>
+                </div>
+                <pre><code>curl -fsSL https://marclevin.me/gonk | GONK_PROFILE=dev bash</code></pre>
+            </div>
+
+            <p class="note">
+                No root, no edits to your shell profile, safe to run again. If <code>gonk</code> is not found
+                afterwards, add <code>export PATH="$HOME/.local/bin:$PATH"</code> to <code>~/.zshrc</code> or
+                <code>~/.bashrc</code>.
+            </p>
+
+            <h2>Equip</h2>
+
+            <div class="cmd">
+                <div class="cmd-head">
+                    <button class="copy" type="button">copy</button>
+                </div>
+                <pre><code>gonk doctor
+gonk land dev</code></pre>
+            </div>
+
+            <p class="note">
+                On a Mac, Gonk installs tools with Homebrew, so install <a href="https://brew.sh"
+                    target="_blank" rel="noopener">Homebrew</a> first.
+            </p>
+
+            <h2>Reach home</h2>
+
+            <ol>
+                <li>Install <a href="https://tailscale.com/download" target="_blank" rel="noopener">Tailscale</a>
+                    and sign in to the tailnet.</li>
+                <li>Point Gonk at home and connect:</li>
+            </ol>
+
+            <div class="cmd">
+                <div class="cmd-head">
+                    <button class="copy" type="button">copy</button>
+                </div>
+                <pre><code>gonk config set home.host gonksystem
+gonk config set home.user marc
+gonk home status
+gonk home shell</code></pre>
+            </div>
+
+            <p class="note">
+                <code>gonk home shell --tmux</code> gives a session that survives a dropped connection.
+                Once Tailscale is up, plain <code>ssh marc@gonksystem</code> works too.
+            </p>
+
+            <h2>Without the website</h2>
+
+            <div class="cmd">
+                <div class="cmd-head">
+                    <button class="copy" type="button">copy</button>
+                </div>
+                <pre><code>curl -fsSL https://raw.githubusercontent.com/marclevin/GonkLander/main/lander/install.sh | bash</code></pre>
+            </div>
+
+            <p class="note">
+                Source and docs: <a href="https://github.com/marclevin/GonkLander" target="_blank"
+                    rel="noopener">github.com/marclevin/GonkLander</a>
+            </p>
+
+        </article>
+    </main>
+
+    <footer>
+        <span class="footer-line">
+            <span class="footer-prompt">❯</span>
+            <a class="footer-name" href="/">marc levin</a>
+            <span class="footer-sep">/</span>
+            <span class="footer-role">mphil fintech</span>
+            <span class="footer-sep">/</span>
+            <span class="footer-loc">cape town</span>
+            <span class="footer-sep">//</span>
+            <span class="footer-year">2026</span>
+        </span>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.copy').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var text = button.closest('.cmd').querySelector('code').textContent;
+                var done = function () {
+                    button.textContent = 'copied';
+                    button.classList.add('done');
+                    setTimeout(function () {
+                        button.textContent = 'copy';
+                        button.classList.remove('done');
+                    }, 1500);
+                };
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(text).then(done);
+                } else {
+                    var area = document.createElement('textarea');
+                    area.value = text;
+                    document.body.appendChild(area);
+                    area.select();
+                    document.execCommand('copy');
+                    area.remove();
+                    done();
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
